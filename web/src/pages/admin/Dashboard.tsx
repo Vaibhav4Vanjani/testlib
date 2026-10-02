@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../../services/api.client';
 import { Lightbox } from '../../components/UI/Lightbox';
+import { getFullImageUrl } from '../../constants/config';
 import {
   Users,
   Armchair,
@@ -726,9 +727,9 @@ export const AdminDashboard: React.FC = () => {
             {selectedPayment.proofFile && (
               <div style={{ textAlign: 'center' }}>
                 <img
-                  src={selectedPayment.proofFile.startsWith('http') ? selectedPayment.proofFile : `http://localhost:5000${selectedPayment.proofFile}`}
+                  src={getFullImageUrl(selectedPayment.proofFile) || ''}
                   alt="Proof Receipt"
-                  onClick={() => setLightboxImage(selectedPayment.proofFile.startsWith('http') ? selectedPayment.proofFile : `http://localhost:5000${selectedPayment.proofFile}`)}
+                  onClick={() => setLightboxImage(getFullImageUrl(selectedPayment.proofFile) || '')}
                   style={{ width: '100%', maxHeight: '240px', objectFit: 'contain', borderRadius: '8px', cursor: 'pointer', border: '1px solid #E2E8F0' }}
                 />
               </div>

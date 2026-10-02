@@ -14,7 +14,8 @@ class LocalStorageProvider implements IStorageService {
   private baseDir: string;
 
   constructor() {
-    this.baseDir = path.resolve(process.cwd(), env.LOCAL_UPLOAD_DIR);
+    const dir = env.LOCAL_UPLOAD_DIR;
+    this.baseDir = path.isAbsolute(dir) ? dir : path.resolve(process.cwd(), dir);
     if (!fs.existsSync(this.baseDir)) {
       fs.mkdirSync(this.baseDir, { recursive: true });
     }

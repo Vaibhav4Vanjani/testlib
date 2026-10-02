@@ -4,6 +4,7 @@ import { UserX, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Lightbox } from '../../components/UI/Lightbox';
 import { Modal } from '../../components/UI/Modal';
+import { getFullImageUrl } from '../../constants/config';
 
 export const AdminPendingPayments: React.FC = () => {
   const [dueList, setDueList] = useState<any[]>([]);
@@ -97,7 +98,7 @@ export const AdminPendingPayments: React.FC = () => {
                   const overdueDays = Math.max(1, Math.floor((nowTime - dueTime) / (1000 * 60 * 60 * 24)));
                   const name = s.studentName || s.fullName || 'Student';
                   const photo = s.profilePictureUrl || s.profilePicture;
-                  const photoUrl = photo ? (photo.startsWith('http') ? photo : `http://localhost:5000${photo}`) : null;
+                  const photoUrl = getFullImageUrl(photo);
 
                   return (
                     <tr key={s._id}>

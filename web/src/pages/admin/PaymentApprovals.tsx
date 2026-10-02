@@ -3,6 +3,7 @@ import { apiRequest } from '../../services/api.client';
 import { CheckCircle2, XCircle, Eye, AlertTriangle } from 'lucide-react';
 import { Modal } from '../../components/UI/Modal';
 import { Lightbox } from '../../components/UI/Lightbox';
+import { getFullImageUrl } from '../../constants/config';
 
 export const AdminPaymentApprovals: React.FC = () => {
   const [pending, setPending] = useState<any[]>([]);
@@ -113,7 +114,7 @@ export const AdminPaymentApprovals: React.FC = () => {
                   const rejectionCount = studentObj.rejectionCount || 0;
 
                   const rawProof = p.proofUrl || p.proofFile || (p.proofObjectKey ? `/uploads/${p.proofObjectKey.replace(/^\/+/, '')}` : null);
-                  const fullProofUrl = rawProof ? (rawProof.startsWith('http') ? rawProof : `http://localhost:5000${rawProof}`) : null;
+                  const fullProofUrl = getFullImageUrl(rawProof);
                   const initial = studentName.charAt(0).toUpperCase();
 
                   return (
@@ -122,12 +123,12 @@ export const AdminPaymentApprovals: React.FC = () => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                           {profilePic ? (
                             <img
-                              src={profilePic.startsWith('http') ? profilePic : `http://localhost:5000${profilePic}`}
+                              src={getFullImageUrl(profilePic) || ''}
                               alt={studentName}
                               title="Click to enlarge student profile picture"
                               onClick={() =>
                                 setLightboxImage({
-                                  url: profilePic.startsWith('http') ? profilePic : `http://localhost:5000${profilePic}`,
+                                  url: getFullImageUrl(profilePic) || '',
                                   title: `${studentName} - Profile Picture`,
                                 })
                               }

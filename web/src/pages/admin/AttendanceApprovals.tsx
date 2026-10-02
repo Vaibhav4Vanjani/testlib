@@ -3,6 +3,7 @@ import { apiRequest } from '../../services/api.client';
 import { CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
 import { Modal } from '../../components/UI/Modal';
 import { Lightbox } from '../../components/UI/Lightbox';
+import { getFullImageUrl } from '../../constants/config';
 
 export const AdminAttendanceApprovals: React.FC = () => {
   const [requests, setRequests] = useState<any[]>([]);
@@ -113,7 +114,7 @@ export const AdminAttendanceApprovals: React.FC = () => {
                           const initial = name.charAt(0).toUpperCase();
 
                           if (pic) {
-                            const imgUrl = pic.startsWith('http') ? pic : `http://localhost:5000${pic}`;
+                            const imgUrl = getFullImageUrl(pic) || '';
                             return (
                               <img
                                 src={imgUrl}

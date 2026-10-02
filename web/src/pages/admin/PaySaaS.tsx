@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../../services/api.client';
 import { CreditCard, Upload, Eye } from 'lucide-react';
 import { Modal } from '../../components/UI/Modal';
+import { getFullImageUrl } from '../../constants/config';
 
 function formatDateDDMonthYYYY(dateString?: string | Date): string {
   if (!dateString) return 'N/A';
@@ -207,7 +208,7 @@ export const AdminPaySaaS: React.FC = () => {
 
           <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '16px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 4px 14px rgba(0,0,0,0.03)' }}>
             <img
-              src={saasData?.qrCodeImage ? (saasData.qrCodeImage.startsWith('http') || saasData.qrCodeImage.startsWith('/') ? saasData.qrCodeImage : `http://localhost:5000${saasData.qrCodeImage}`) : '/super-admin-qr.png'}
+              src={saasData?.qrCodeImage ? (getFullImageUrl(saasData.qrCodeImage) || '/super-admin-qr.png') : '/super-admin-qr.png'}
               alt="Super Admin QR Code"
               style={{ width: '100%', maxWidth: '240px', objectFit: 'contain', borderRadius: '12px', marginBottom: '14px', border: '1px solid #E2E8F0' }}
             />
@@ -265,7 +266,7 @@ export const AdminPaySaaS: React.FC = () => {
                         <button
                           className="btn btn-secondary"
                           style={{ fontSize: '12px', padding: '4px 8px' }}
-                          onClick={() => setViewingReceiptUrl(h.proofImage.startsWith('http') ? h.proofImage : `http://localhost:5000${h.proofImage}`)}
+                          onClick={() => setViewingReceiptUrl(getFullImageUrl(h.proofImage) || '')}
                         >
                           <Eye size={14} /> View
                         </button>

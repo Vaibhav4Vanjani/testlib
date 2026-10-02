@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { apiRequest } from '../../services/api.client';
+import { getFullImageUrl } from '../../constants/config';
 import { DataTable, type Column } from '../../components/UI/DataTable';
 import { Badge } from '../../components/UI/Badge';
 import { Modal } from '../../components/UI/Modal';
@@ -381,7 +382,7 @@ export const AdminStudents: React.FC = () => {
     setEditPhone(student.phone || student.userId?.phone || '');
     setEditAadharNumber(student.aadharNumber || '');
     const photo = student.profilePictureUrl || student.profileImage || student.userId?.profilePicture;
-    setEditPhotoPreview(photo ? (photo.startsWith('http') ? photo : `http://localhost:5000${photo}`) : null);
+    setEditPhotoPreview(getFullImageUrl(photo));
     setEditPhotoFile(null);
     setEditPassword('');
 
@@ -579,9 +580,9 @@ export const AdminStudents: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {photo ? (
               <img
-                src={photo.startsWith('http') ? photo : `http://localhost:5000${photo}`}
+                src={getFullImageUrl(photo) || ''}
                 alt={name}
-                onClick={() => setLightboxImage(photo.startsWith('http') ? photo : `http://localhost:5000${photo}`)}
+                onClick={() => setLightboxImage(getFullImageUrl(photo) || '')}
                 style={{ width: '34px', height: '34px', borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '1px solid #E2E8F0', flexShrink: 0 }}
               />
             ) : (
@@ -790,7 +791,7 @@ export const AdminStudents: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   {photo ? (
                     <img
-                      src={photo.startsWith('http') ? photo : `http://localhost:5000${photo}`}
+                      src={getFullImageUrl(photo) || ''}
                       alt={name}
                       style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', border: '1.5px solid #CBD5E1' }}
                     />
@@ -948,7 +949,7 @@ export const AdminStudents: React.FC = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '420px', overflowY: 'auto', paddingRight: '4px' }}>
                   {historyList.map((pay: any, idx: number) => {
                     const proofUrl = pay.proofImageUrl || pay.proofFile || pay.proofUrl;
-                    const fullProofUrl = proofUrl ? (proofUrl.startsWith('http') ? proofUrl : `http://localhost:5000${proofUrl}`) : null;
+                    const fullProofUrl = getFullImageUrl(proofUrl);
 
                     return (
                       <div

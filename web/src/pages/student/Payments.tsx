@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { apiRequest } from '../../services/api.client';
+import { getFullImageUrl } from '../../constants/config';
 import { HOURLY_TIME_SLOTS, getValidToTimeSlots, calculateSlotDurationHours, calculateSlotPricing, validateMonths, parseTimeToHourNum } from '../../utils/timeSlots';
 import { CreditCard, Upload, Armchair, Lock, CheckCircle2, Clock3, XCircle } from 'lucide-react';
 
@@ -333,7 +334,7 @@ export const StudentPayments: React.FC = () => {
               <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A', marginBottom: '12px' }}>Library Payment QR Code</h3>
               {paymentMaster.qrCodeImage && (
                 <img
-                  src={paymentMaster.qrCodeImage.startsWith('http') ? paymentMaster.qrCodeImage : `http://localhost:5000${paymentMaster.qrCodeImage}`}
+                  src={getFullImageUrl(paymentMaster.qrCodeImage) || ''}
                   alt="Payment QR"
                   style={{ width: '180px', height: '180px', objectFit: 'cover', borderRadius: '12px', margin: '0 auto 12px', border: '1px solid #E2E8F0' }}
                 />

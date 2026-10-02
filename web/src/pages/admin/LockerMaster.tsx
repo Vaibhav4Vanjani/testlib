@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { apiRequest } from '../../services/api.client';
+import { getFullImageUrl } from '../../constants/config';
 import { DataTable, type Column } from '../../components/UI/DataTable';
 import { Modal } from '../../components/UI/Modal';
 import { useDebounce } from '../../hooks/useDebounce';
@@ -1294,7 +1295,7 @@ export const AdminLockerMaster: React.FC = () => {
                   const name = st.fullName || st.userId?.fullName || 'Student';
                   const phone = st.phone || st.userId?.phone || 'No Phone';
                   const photo = st.profilePictureUrl || st.profileImage || st.userId?.profilePicture;
-                  const fullPhoto = photo ? (photo.startsWith('http') ? photo : `http://localhost:5000${photo}`) : null;
+                  const fullPhoto = getFullImageUrl(photo);
 
                   return (
                     <div

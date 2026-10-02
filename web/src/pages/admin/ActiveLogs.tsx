@@ -5,6 +5,7 @@ import { Badge } from '../../components/UI/Badge';
 import { LogOut } from 'lucide-react';
 import { formatDate } from '../../utils/dates';
 import { Lightbox } from '../../components/UI/Lightbox';
+import { getFullImageUrl } from '../../constants/config';
 
 export const AdminActiveLogs: React.FC = () => {
   const [logs, setLogs] = useState<any[]>([]);
@@ -140,7 +141,7 @@ export const AdminActiveLogs: React.FC = () => {
             const initial = name.charAt(0).toUpperCase();
 
             if (pic) {
-              const imgUrl = pic.startsWith('http') ? pic : `http://localhost:5000${pic}`;
+              const imgUrl = getFullImageUrl(pic) || '';
               return (
                 <img
                   src={imgUrl}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getFullImageUrl } from '../../constants/config';
 
 interface LightboxProps {
   isOpen: boolean;
@@ -10,7 +11,7 @@ interface LightboxProps {
 export const Lightbox: React.FC<LightboxProps> = ({ isOpen, onClose, imageUrl, title = 'Image Preview' }) => {
   if (!isOpen || !imageUrl) return null;
 
-  const fullUrl = imageUrl.startsWith('http') ? imageUrl : `http://localhost:5000${imageUrl}`;
+  const fullUrl = getFullImageUrl(imageUrl) || imageUrl;
 
   return (
     <div className="modal-overlay" onClick={onClose}>

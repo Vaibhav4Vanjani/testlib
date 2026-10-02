@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { apiRequest } from '../../services/api.client';
+import { getFullImageUrl } from '../../constants/config';
 import { HOURLY_TIME_SLOTS, getValidToTimeSlots, calculateSlotDurationHours, calculateSlotPricing, validateMonths, parseTimeToHourNum } from '../../utils/timeSlots';
 import { sortItemsNaturally } from '../../utils/sorting';
 import { Modal } from '../../components/UI/Modal';
@@ -337,7 +338,7 @@ export const StudentSeats: React.FC = () => {
                 </div>
                 {paymentMaster.qrCodeImage && (
                   <img
-                    src={paymentMaster.qrCodeImage.startsWith('http') ? paymentMaster.qrCodeImage : `http://localhost:5000${paymentMaster.qrCodeImage}`}
+                    src={getFullImageUrl(paymentMaster.qrCodeImage) || ''}
                     alt="UPI QR Code"
                     style={{ width: '160px', height: '160px', borderRadius: '12px', objectFit: 'cover', margin: '0 auto 12px' }}
                   />
